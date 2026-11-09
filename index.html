@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Аренда спецтехники</title>
+    
+    <link rel="icon" href="logo.png" type="image/png">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            scroll-behavior: smooth;
+        }
+        body {
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1150px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        section {
+            padding: 60px 0;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 30px;
+            margin-bottom: 40px;
+            color: #2c3e50;
+        }
+
+        header {
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+        .logo-text {
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            line-height: 1.1;
+            display: flex;
+            flex-direction: column;
+        }
+        .logo-text span {
+            color: #ffc107;
+            font-size: 13px;
+            letter-spacing: 2px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 15px;
+            padding: 8px 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        nav a:hover {
+            background-color: #ffc107;
+            color: #2c3e50;
+            border-color: #ffc107;
+            transform: translateY(-2px);
+        }
+
+        .header-contacts {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .phone {
+            font-size: 17px;
+            font-weight: bold;
+            color: #ffc107;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .social-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+            color: #fff;
+            height: 32px; 
+            transition: opacity 0.3s, transform 0.2s;
+        }
+        .social-btn:hover {
+            opacity: 0.85;
+            transform: translateY(-1px);
+        }
+        .social-btn img {
+            height: 18px;
+            width: 18px;
+            object-fit: contain;
+            border-radius: 3px;
+        }
+        .btn-tg { background-color: #0088cc; }
+        .btn-max { background-color: #7b2cbf; }
+
+        .hero {
+            background: url('https://images.unsplash.com/photo-1503708928676-1cb796a0891e?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            background-color: #34495e;
+            color: #fff;
+            text-align: center;
+            padding: 100px 20px;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.65);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .hero h1 { font-size: 38px; margin-bottom: 20px; }
+        .hero p { font-size: 18px; margin-bottom: 30px; }
+
+        .features { display: flex; flex-wrap: wrap; gap: 20px; }
+        .feature-item {
+            background: #fff;
+            padding: 25px;
+            flex: 1 1 30%;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .feature-item h3 { color: #2c3e50; margin-bottom: 10px; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .card:hover { transform: translateY(-5px); }
+        .card-img {
+            height: 200px;
+            background-color: #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-weight: bold;
+        }
+        .card-content { padding: 20px; }
+        .card-content h3 { margin-bottom: 10px; color: #2c3e50; font-size: 18px; }
+        .price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-top: 15px;
+            display: block;
+        }
+
+        .about-text {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            font-size: 18px;
+            text-align: justify;
+            min-height: 150px;
+        }
+        .about-text p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        .about-text p:last-child {
+            margin-bottom: 0;
+        }
+        .about-text ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 10px 0 20px 0;
+        }
+        .about-text li {
+            margin-bottom: 8px;
+        }
+
+        .price-table-wrapper {
+            overflow-x: auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+        th, td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        th { background-color: #2c3e50; color: #fff; font-weight: normal; }
+        tr:hover { background-color: #f9f9f9; }
+        td:last-child { font-weight: bold; color: #e74c3c; white-space: nowrap; }
+
+        .contacts-box {
+            background: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .contacts-box p { font-size: 18px; margin-bottom: 15px; }
+        .contacts-box .big-phone {
+            font-size: 32px;
+            font-weight: bold;
+            color: #e74c3c;
+            text-decoration: none;
+            display: inline-block;
+            margin: 20px 0;
+        }
+        .contacts-box .big-phone:hover { color: #c0392b; }
+
+        footer {
+            background-color: #2c3e50;
+            color: #fff;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 1000px) {
+            .header-content { flex-direction: column; text-align: center; }
+            .header-contacts { flex-direction: column; gap: 10px; }
+            nav ul { justify-content: center; margin: 10px 0; }
+            .hero h1 { font-size: 28px; }
+            .feature-item { flex: 1 1 100%; }
+            .contacts-box .big-phone { font-size: 26px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-content">
+            
+            <a href="#" class="logo">
+                <img src="logo.png" alt="Логотип">
+                <div class="logo-text">
+                    АРЕНДА
+                    <span>Спецтехники</span>
+                </div>
+            </a>
+
+            <nav>
+                <ul>
+                    <li><a href="#about">О компании</a></li>
+                    <li><a href="#catalog">Техника</a></li>
+                    <li><a href="#price">Прайс</a></li>
+                    <li><a href="#contacts">Контакты</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-contacts">
+                <a href="tel:+8341256672" class="phone">+8 (3412) 56-16-72</a>
+                
+                <div class="social-buttons">
+                    <a href="https://t.me/Vasik_83" target="_blank" class="social-btn btn-tg" title="Написать в Telegram">
+                        <img src="telegram.png" alt="TG">
+                        TELEGRAM
+                    </a>
+                    <a href="https://max.ru/u/f9LHodD0cOID5nR59qO2Wg4Mm11xBL-LYK1bWD8yna2UNNvWSuC3Vu7oORY" target="_blank" class="social-btn btn-max" title="Написать в MAX">
+                        <img src="max.jpg" alt="MAX">
+                        MAX
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        
+        <style>
+            .hero {
+                position: relative;
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                min-height: 450px;
+                overflow: hidden;
+                padding: 0;
+            }
+            .hero-bg-item {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+            }
+            .hero-overlay {
+                position: absolute;
+                top: 0; left: 0; right: 0; bottom: 0;
+                background: rgba(0, 0, 0, 0.65);
+                z-index: 1;
+            }
+            .hero-text-wrapper {
+                position: absolute;
+                top: 0; left: 0; right: 0; bottom: 0;
+                z-index: 2;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 0 20px;
+                text-align: center;
+            }
+            .hero-text-wrapper h1 {
+                font-size: 38px;
+                margin-bottom: 20px;
+                color: #fff;
+                max-width: 900px;
+            }
+            .hero-text-wrapper p {
+                font-size: 18px;
+                margin-bottom: 30px;
+                color: #fff;
+                max-width: 700px;
+            }
+            @media (max-width: 768px) {
+                .hero {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+                .hero-text-wrapper h1 { font-size: 26px; }
+                .hero-text-wrapper p { font-size: 16px; }
+            }
+        </style>
+
+        <img src="backhoe loader.jpg" alt="Экскаватор-погрузчик" class="hero-bg-item">
+        <img src="towtruck.jpg" alt="Эвакуатор" class="hero-bg-item">
+        <img src="semi-truck.jpg" alt="Фура" class="hero-bg-item">
+        <img src="mini-truck.jpg" alt="Мини-грузовик" class="hero-bg-item">
+
+        <div class="hero-overlay"></div>
+
+        <div class="hero-text-wrapper">
+            <h1>Аренда спецтехники в Ижевске и Удмуртии, перевозка грузов по России любым транспортом</h1>
+            <p>Предоставляем технику в течение 24 часов и доставляем до объекта на нашем транспорте. Работаем с физическими и юридическими лицами.</p>
+        </div>
+
+    </section>
+
+    <div class="container" style="margin-top: 40px;">
+        <div class="features">
+            <div class="feature-item">
+                <h3>Сервис</h3>
+                <p>Принимаем заявки и подаем технику оперативно</p>
+            </div>
+            <div class="feature-item">
+                <h3>Опытные машинисты</h3>
+                <p>Вся техника управляется квалифицированными специалистами</p>
+            </div>
+            <div class="feature-item">
+                <h3>Честные цены</h3>
+                <p>Прозрачное ценообразование без скрытых платежей. Гибкая система скидок для постоянных клиентов</p>
+            </div>
+        </div>
+    </div>
+
+    <section id="about" style="background-color: #f4f4f4;">
+        <div class="container">
+            <h2 class="section-title">О компании</h2>
+            <div class="about-text">
+                <p>Мы — молодая и динамично развивающаяся компания, с 2023 года предоставляющая услуги аренды спецтехники и перевозки грузов по всей России.</p>
+                <p>Несмотря на небольшой срок работы, мы уже зарекомендовали себя как надёжный партнёр: оперативно выходим на объекты, предлагаем гибкие условия сотрудничества и гарантируем сохранность грузов на любых маршрутах.</p>
+                <p>Наш парк техники постоянно пополняется, а команда — это опытные специалисты, которые берут на себя все организационные вопросы. Мы работаем с бизнесом любого масштаба — от небольших подрядчиков до крупных промышленных предприятий.</p>
+                
+                <p style="margin-top: 20px;"><strong>Мы гарантируем:</strong></p>
+                <ul style="list-style: none; padding-left: 0; margin-top: 10px;">
+                    <li style="margin-bottom: 8px;">✅ Технику в срок и в полном объеме</li>
+                    <li style="margin-bottom: 8px;">✅ Профессиональных операторов-машинистов</li>
+                    <li style="margin-bottom: 8px;">✅ Выгодные цены и гибкую систему скидок</li>
+                    <li style="margin-bottom: 8px;">✅ Оформление всех необходимых документов</li>
+                </ul>
+                
+                <p style="margin-top: 20px;">Доверьте свою работу профессионалам – мы выполним все обязательства в срок и с высоким качеством!</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="catalog" style="background-color: #fff;">
+        <div class="container">
+            <h2 class="section-title">Популярная техника</h2>
+            <div class="grid">
+                <div class="card">
+                    <img src="workplatform.png" alt="Автовышка" class="card-img">
+                    <div class="card-content">
+                        <h3>Автовышки от 18 метров</h3>
+                        <p>Грузоподъемность: 250 кг<br>Высота подъема: 30 м</p>
+                        <span class="price">От 2 500 руб. / час</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="manipulator.png" alt="Манипулятор" class="card-img">
+                    <div class="card-content">
+                        <h3>Манипуляторы</h3>
+                        <p>Грузоподъемность: от 5 т<br>Вылет стрелы: от 12 м</p>
+                        <span class="price">От 2 500 руб. / час</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="backhoe loadercard.png" alt="Экскаватор-погрузчик" class="card-img">
+                    <div class="card-content">
+                        <h3>Экскаваторы-погрузчики</h3>
+                        <p>Полный привод<br>Ковш и гидромолот</p>
+                        <span class="price">От 2 500 руб. / час</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="frontend loaders.png" alt="Фронтальный погрузчик" class="card-img">
+                    <div class="card-content">
+                        <h3>Фронтальные погрузчики</h3>
+                        <p>Объем ковша: 1.8 куб.м <br>Высокая производительность</p>
+                        <span class="price">От 2 500 руб. / час</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="price">
+        <div class="container">
+            <h2 class="section-title">Прайс-лист на услуги</h2>
+            <div class="price-table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Наименование техники / услуги</th>
+                            <th>Характеристики</th>
+                            <th>Цена (руб./час)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Автовышки</td>
+                            <td>Высота 30 м, телескопическая</td>
+                            <td>От 2 500 ₽</td>
+                        </tr>
+                        <tr>
+                            <td>Манипулятор</td>
+                            <td>Грузоподъемность от 5 тн, вылет от 12 м</td>
+                            <td>От 2 500 ₽</td>
+                        </tr>
+                        <tr>
+                            <td>Экскаватор-погрузчик</td>
+                            <td>Полный привод, ковш</td>
+                            <td>От 2 500 ₽</td>
+                        </tr>
+                        <tr>
+                            <td>Фронтальный погрузчик</td>
+                            <td>Объем ковша от 1.8 куб.м</td>
+                            <td>От 2 500 ₽</td>
+                        </tr>
+                        <tr>
+                            <td>Автокраны</td>
+                            <td>Грузоподъемность 25-30-45 т, вылет от 30 м</td>
+                            <td>От 2 500 ₽</td>
+                        </tr>
+                        <tr>
+                            <td>Тягачи</td>
+                            <td>Седельные тягачи для перевозки грузов</td>
+                            <td>По договоренности</td>
+                        </tr>
+                        <tr>
+                            <td>Эвакуаторы</td>
+                            <td>Эвакуация техники и транспорта</td>
+                            <td>По договоренности</td>
+                        </tr>
+                        <tr>
+                            <td>Перевозка грузов по России</td>
+                            <td>Любым транспортом, по всей России</td>
+                            <td>По договоренности</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacts" style="background-color: #fff;">
+        <div class="container">
+            <h2 class="section-title">Контакты</h2>
+            <div class="contacts-box">
+                <p>Чтобы узнать точную стоимость или заказать технику, просто позвоните нам:</p>
+                <a href="tel:+8341256672" class="big-phone">+8 (3412) 56-16-72</a> 
+                <p><strong>График работы:</strong> Пн-Пт с 8:00 до 18:00</p>
+                <p><strong>Регион работы:</strong> Удмуртская Республика г. Ижевск</p>
+                <p style="margin-top: 20px; font-size: 16px; color: #666;">Звонки принимаются с мобильных и городских телефонов. Также вы можете написать нам в мессенджеры (Max / Telegram) на этот же номер.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p style="margin-bottom: 15px; font-size: 14px; color: #ddd;">
+                ООО «УФК»<br>
+                Обращаем ваше внимание, что данный сайт носит исключительно информационный характер и не является публичной офертой.
+            </p>
+            
+            <div style="margin: 20px 0; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                <a href="https://max.ru/u/f9LHodD0cOID5nR59qO2Wg4Mm11xBL-LYK1bWD8yna2UNNvWSuC3Vu7oORY" target="_blank" class="social-btn btn-max" style="height: auto; padding: 10px 20px; font-size: 15px;">
+                    <img src="max.jpg" alt="MAX">
+                    Написать в MAX
+                </a>
+                <a href="https://t.me/Vasik_83" target="_blank" class="social-btn btn-tg" style="height: auto; padding: 10px 20px; font-size: 15px;">
+                    <img src="telegram.png" alt="Telegram">
+                    Написать в Telegram
+                </a>
+            </div>
+
+            <p style="margin-top: 20px; font-size: 12px; color: #888; margin-bottom: 15px;">
+                &copy; 2026 ООО «УФК».
+            </p>
+
+            <div style="border-top: 1px solid #4a6076; padding-top: 15px; max-width: 900px; margin: 0 auto;">
+                <p style="font-size: 11px; color: #999; line-height: 1.5; margin: 0;">
+                    Некоторые материалы и изображения, размещенные на настоящем сайте, получены из открытых источников в сети Интернет. 
+                    Администрация сайта не присваивает себе авторство данных материалов. Если размещение какого-либо изображения нарушает ваши исключительные права и вы можете 
+                    подтвердить свое авторство, пожалуйста, направьте обращение на <a href="mailto:neyrokz1@gmail.com" style="color: #ffc107; text-decoration: none;">neyrokz1@gmail.com</a> с указанием ссылки на материал.
+                </p>
+            </div>
+
+        </div>
+    </footer>
+
+</body>
+</html>
